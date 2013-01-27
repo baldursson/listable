@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "listable"
   gem.homepage = "http://github.com/baldursson/listable"
   gem.license = "MIT"
-  gem.summary = %Q{Makes is easy to list several models in a unifdfsdf.}
-  gem.description = %Q{gdsgdsgds}
+  gem.summary = %Q{Makes is easy to list and query several models through a unified view based model.}
+  gem.description = %Q{With listable you can consolidate fields from several models into one model backed up by a database view. }
   gem.email = "johannes.baldursson@gmail.com"
   gem.authors = ["Johannes Baldursson"]
   # dependencies defined in Gemfile
@@ -51,3 +51,12 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+
+namespace :listable do
+  desc "Creating database views..."
+  task :migrate => :environment do
+    Rails.application.eager_load!
+    Listable::ViewManager.create_views
+  end
+end
+
