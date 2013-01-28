@@ -43,7 +43,7 @@ class ActiveRecord::Base
 end
 
 class ActiveRecord::ConnectionAdapters::AbstractAdapter
-  include Listable::SchemaStatements
+  include Listable::ConnectionAdapters::SchemaStatements
 end
 
 class ActiveRecord::ConnectionAdapters::PostgreSQLAdapter
