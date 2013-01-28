@@ -1,6 +1,7 @@
 require 'listable/view_manager'
 require 'listable/connection_adapters'
 require 'listable/querying'
+require 'listable/railtie' if defined?(Rails)
 
 module Listable
   module ClassMethods
@@ -60,11 +61,4 @@ end
 
 class ActiveRecord::ConnectionAdapters::Mysql2Adapter
   include Listable::ConnectionAdapters::MySQLExtensions
-end
-
-#require 'rake'
-
-# Rebuild views after db:migrate
-Rake::Task['db:migrate'].enhance do
-  Rake::Task['listable:migrate'].invoke
 end

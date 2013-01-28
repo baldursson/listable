@@ -55,12 +55,3 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
-
-namespace :listable do
-  desc "Creating Listable database views..."
-  task :migrate => :environment do
-    Rails.application.eager_load!
-    Listable::ViewManager.create_views
-  end
-end
-
