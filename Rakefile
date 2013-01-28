@@ -17,8 +17,12 @@ Jeweler::Tasks.new do |gem|
   gem.name = "listable"
   gem.homepage = "http://github.com/baldursson/listable"
   gem.license = "MIT"
-  gem.summary = %Q{Makes is easy to list and query several models through a unified view based model.}
-  gem.description = %Q{With listable you can consolidate fields from several models into one model backed up by a database view. }
+  gem.summary = %Q{Rails extension that makes it easy to list and query several models through a single view backed model.}
+  gem.description = %Q{With listable you can consolidate fields from several models into one, backed up by a database view.
+                       It is perfect for e.g. a front page where you may want to display the most recent additions to your site in a joint list.
+                       By providing scopes for each model you wish to include in a view, Listable will automatically create the database view for you.
+                       Using the provided helpers and query extensions, you will be good to go in no time.
+                       }
   gem.email = "johannes.baldursson@gmail.com"
   gem.authors = ["Johannes Baldursson"]
   # dependencies defined in Gemfile
@@ -53,7 +57,7 @@ Rake::RDocTask.new do |rdoc|
 end
 
 namespace :listable do
-  desc "Creating database views..."
+  desc "Creating Listable database views..."
   task :migrate => :environment do
     Rails.application.eager_load!
     Listable::ViewManager.create_views
