@@ -1,9 +1,13 @@
+require 'active_support/concern'
+
 require 'listable/view_manager'
 require 'listable/connection_adapters'
 require 'listable/querying'
 require 'listable/railtie' if defined?(Rails)
 
 module Listable
+  extend ActiveSupport::Concern
+
   module ClassMethods
     def listable_through(listable_view_name, scope_name)
       has_one listable_view_name.to_s.singularize, as: :listable
@@ -31,10 +35,6 @@ module Listable
     def readonly?
       true
     end
-  end
-  
-  def self.included(receiver)
-    receiver.extend ClassMethods
   end
 end
 

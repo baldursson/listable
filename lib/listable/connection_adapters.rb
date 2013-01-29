@@ -51,7 +51,7 @@ module Listable
       include ConcatenationMethods::PipeOperator
 
       def views
-        query(<<-SQL, 'SCHEMA').map { |row| row[0] }
+        exec_query(<<-SQL, 'SCHEMA').map { |row| row['name'] }
           SELECT name
           FROM sqlite_master
           WHERE type = 'view';
@@ -63,11 +63,13 @@ module Listable
       include ConcatenationMethods::Function
 
       def views()
-        sql = "SHOW FULL TABLES "
-        sql << "IN #{quote_table_name(current_database)} "
-        sql << "WHERE TABLE_TYPE LIKE 'VIEW'" if like
+        query = <<-SQL
+          SHOW FULL TABLES 
+          IN #{quote_table_name(current_database)} 
+          WHERE TABLE_TYPE LIKE 'VIEW'
+        SQL
 
-        execute_and_free(sql, 'SCHEMA') do |result|
+        execute_and_free(query, 'SCHEMA') do |result|
           result.collect { |field| field.first }
         end
       end

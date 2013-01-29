@@ -9,10 +9,22 @@ module Listable
       # end
 
       ActiveSupport.on_load :active_record do
-        ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.send(:include, Listable::ConnectionAdapters::PostgreSQLExtensions)
-        #ActiveRecord::ConnectionAdapters::SQLiteAdapter.send(:include, Listable::ConnectionAdapters::SQLiteExtensions)
-        #ActiveRecord::ConnectionAdapters::MysqlAdapter.send(:include, Listable::ConnectionAdapters::MySQLExtensions)
-        #ActiveRecord::ConnectionAdapters::Mysql2Adapter.send(:include, Listable::ConnectionAdapters::MySQLExtensions)
+        # Extending connection adapters
+        if ActiveRecord::ConnectionAdapters.const_defined?(:PostgreSQLAdapter)
+          ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.send(:include, Listable::ConnectionAdapters::PostgreSQLExtensions)
+        end
+
+        if ActiveRecord::ConnectionAdapters.const_defined?(:SQLiteAdapter)
+          ActiveRecord::ConnectionAdapters::SQLiteAdapter.send(:include, Listable::ConnectionAdapters::SQLiteExtensions)
+        end
+
+        if ActiveRecord::ConnectionAdapters.const_defined?(:MysqlAdapter)
+          ActiveRecord::ConnectionAdapters::MysqlAdapter.send(:include, Listable::ConnectionAdapters::MySQLExtensions)
+        end
+
+        if ActiveRecord::ConnectionAdapters.const_defined?(:Mysql2Adapter)
+          ActiveRecord::ConnectionAdapters::Mysql2Adapter.send(:include, Listable::ConnectionAdapters::MySQLExtensions)
+        end
       end
     end
 
