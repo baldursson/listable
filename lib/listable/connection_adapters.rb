@@ -72,6 +72,5 @@ module Listable
         end
       end
     end
-
   end
 end

@@ -12,7 +12,7 @@ module Listable
     end
 
     def acts_as_listable_view
-      table_name = ViewManager.prefixed_view_name(self.name)
+      self.table_name = ViewManager.prefixed_view_name(self.name)
       belongs_to :listable, polymorphic: true
       include ViewMethods
     end
@@ -47,18 +47,4 @@ class ActiveRecord::ConnectionAdapters::AbstractAdapter
   include Listable::ConnectionAdapters::SchemaStatements
 end
 
-class ActiveRecord::ConnectionAdapters::PostgreSQLAdapter
-  include Listable::ConnectionAdapters::PostgreSQLExtensions
-end
 
-class ActiveRecord::ConnectionAdapters::SQLiteAdapter
-  include Listable::ConnectionAdapters::SQLiteExtensions
-end
-
-class ActiveRecord::ConnectionAdapters::MysqlAdapter
-  include Listable::ConnectionAdapters::MySQLExtensions
-end
-
-class ActiveRecord::ConnectionAdapters::Mysql2Adapter
-  include Listable::ConnectionAdapters::MySQLExtensions
-end

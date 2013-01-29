@@ -4,7 +4,7 @@ module Listable
 
     class << self
       def prefixed_view_name(name)
-        prefix << name
+        prefix << name.underscore.pluralize
       end
 
       def prefix
