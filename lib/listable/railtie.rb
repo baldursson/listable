@@ -1,13 +1,6 @@
-#require 'rake'
-
 module Listable
   class Railtie < Rails::Railtie
     initializer "listable" do
-      # Rebuild views after db:migrate
-      # Rake::Task['db:migrate'].enhance do
-      #   Rake::Task['listable:migrate'].invoke
-      # end
-
       ActiveSupport.on_load :active_record do
         # Extending connection adapters
         if ActiveRecord::ConnectionAdapters.const_defined?(:PostgreSQLAdapter)
