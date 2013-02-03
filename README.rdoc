@@ -2,10 +2,80 @@
 
 With listable you can consolidate fields from several models into one, backed up by a database view.
 It is perfect for e.g. a front page where you may want to display the most recent additions to your site in a joint list.
-By providing scopes for each model you wish to include in a view, Listable will automatically create the database view for you.
+By providing scopes for each model you wish to include in a view, listable will automatically create the database view for you.
+The view model and the models it lists will have a polymorphic association for convenience.
 
 == How to use
-Coming soon...
+This chapter shows some basic examples of all the steps needed to get started.
+
+=== Configuring models 
+Every model that should be listable in the same context, must provide a scope that select columns of the same name,
+in the same order and with compatible data types. Listable extends ActiveRecord with two query methods to make this easy
+without being forced to write adapter specific SQL in your models.
+N.B. The timestamps "created_at" and "updated_at" will be include automatically, so don't include them in the scope.
+
+Here is a basic example:
+  class Employee << ActiveRecord::Base
+    # This model will be listable through the view backed model ListItem,
+    # with the data provided by the "listables" scope 
+    listable_through :list_item, :listables
+
+    # The "first_name" and "last_name" columns will be concatenated and selected as "name" 
+    scope :listables, concat_select([:first_name, ' ', :last_name], :name)
+  end
+
+  class Article << ActiveRecord::Base
+    # You can also provide the target model name in plural if that feels more natural for you
+    listable_through :list_items, :listables
+
+    # The select_as method takes a hash as argument, the keys are the original column names
+    # and the values are their new names
+    scope :listables, select_as(title: 'name')
+  end
+
+  class ListItem << ActiveRecord::Base
+    # This method call is needed to configure the model correctly
+    acts_as_listable_view
+  end
+
+=== Creating the database views
+You can create the database views by running the rake task +listable:migrate+.
+But you will hardly ever need to do that since all listable views are automatically (re)created when running
+Rails' +db:migrate+.
+
+==== Why not generate Rails migrations to create the views?
+I believe it is very awkward to create views through migrations for several reasons.
+The basic role of a migration is to either add or remove columns where you can store data.
+When creating a view, you are not adding more means to store data. You are just creating an alternative
+view of what's already there.
+
+Since a view is 100% dependant on your existing columns, you will need
+to recreate the view everytime you need to change the columns it depend on. Because that's the thing with
+views, everytime you need to change it, you will have to drop it and create it again from scratch.
+You can imagine how ugly, and not so very DRY, your migrations could end up.
+
+There is also not any built in support for creating views in Rails, which means you would probably end
+up writing database specific SQL, which could potentially become a problem along the way.
+
+Migrations is just not a natural place for views. Just let listable handle it for you instead...
+
+=== Using your listable models
+You can query your view backed model like any other model:
+  class ListItemsController < ApplicationController
+    def index
+      @items = ListItem.order("name")
+    end
+  end
+
+The original model is accessible through the "listable" property.
+
+  # index.html.erb
+  render @items
+
+  # _list_item.html.erb
+  content_tag :h1, list_item.name
+  link_to list_item.listable # Links to the original model
+
 
 == Contributing to listable
  
