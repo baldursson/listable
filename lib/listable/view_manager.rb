@@ -1,6 +1,5 @@
 module Listable
   class ViewManager
-    cattr_reader :listables
 
     class << self
       def prefixed_view_name(name)
@@ -9,6 +8,10 @@ module Listable
 
       def prefix
         'lstble_'  
+      end
+
+      def listables
+        @@listables
       end
 
       def add_listable(view_name, model_name, model_scope_name)
@@ -22,6 +25,7 @@ module Listable
       end
 
       def create_views
+        return if listables.nil?
         ActiveRecord::Base.transaction do
           drop_views # First drop all listable views to get a fresh start
           listables.each do |view_name, query_info|

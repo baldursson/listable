@@ -38,13 +38,22 @@ module Listable
   end
 end
 
-class ActiveRecord::Base
-  include Listable
-  include Listable::Querying
+ActiveRecord::Base.send :include, Listable
+ActiveRecord::Base.send :include, Listable::Querying
+
+ActiveRecord::ConnectionAdapters::AbstractAdapter.send :include, Listable::ConnectionAdapters::SchemaStatements
+
+if defined?(Rails)
+  # Extending connection adapters when lazily loaded by Rails
+  require 'listable/railtie'
+else
+  require 'active_record/connection_adapters/sqlite_adapter'
+  require 'active_record/connection_adapters/postgresql_adapter'
+  require 'active_record/connection_adapters/mysql2_adapter'
+
+  # Extending connection adapters
+  ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.send(:include, Listable::ConnectionAdapters::PostgreSQLExtensions)
+  ActiveRecord::ConnectionAdapters::SQLiteAdapter.send(:include, Listable::ConnectionAdapters::SQLiteExtensions)
+  ActiveRecord::ConnectionAdapters::Mysql2Adapter.send(:include, Listable::ConnectionAdapters::MySQLExtensions)
 end
-
-class ActiveRecord::ConnectionAdapters::AbstractAdapter
-  include Listable::ConnectionAdapters::SchemaStatements
-end
-
-
+      

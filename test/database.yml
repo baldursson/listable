@@ -1,0 +1,14 @@
+sqlite:
+  adapter: sqlite3
+  database: listable.sqlite3
+
+postgres:
+  adapter: postgresql
+  database: listable_test
+  encoding: unicode
+  host: localhost
+
+mysql:
+  adapter: mysql2
+  database: listable_test
+  encoding: utf8
