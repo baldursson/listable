@@ -4,14 +4,15 @@ With listable you can consolidate fields from several models into one, backed up
 It is perfect for e.g. a front page where you may want to display the most recent additions to your site in a joint list.
 By providing scopes for each model you wish to include in a view, listable will automatically create the database view for you.
 The view model and the models it lists will have a polymorphic association for convenience.
+Listable currently supports the following connection adapters: SQLite, PostgreSQL and MySQL2.
 
 == How to use
 This chapter shows some basic examples of all the steps needed to get started.
 
-=== Configuring models 
-Every model that should be listable in the same context, must provide a scope that select columns of the same name,
+=== Configuring the models 
+Every model that should be listable in the same context must provide a scope that select columns of the same name,
 in the same order and with compatible data types. Listable extends ActiveRecord with two query methods to make this easy
-without being forced to write adapter specific SQL in your models.
+without being forced to write database specific SQL in your models.
 N.B. The timestamps "created_at" and "updated_at" will be include automatically, so don't include them in the scope.
 
 Here is a basic example:
@@ -39,9 +40,9 @@ Here is a basic example:
   end
 
 === Creating the database views
-You can create the database views by running the rake task +listable:migrate+.
+You can create the database views by running the rake task <em>listable:migrate</em>.
 But you will hardly ever need to do that since all listable views are automatically (re)created when running
-Rails' +db:migrate+.
+Rails' <em>db:migrate</em>.
 
 ==== Why not generate Rails migrations to create the views?
 I believe it is very awkward to create views through migrations for several reasons.
@@ -75,7 +76,6 @@ The original model is accessible through the "listable" property.
   # _list_item.html.erb
   content_tag :h1, list_item.name
   link_to list_item.listable # Links to the original model
-
 
 == Contributing to listable
  
