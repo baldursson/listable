@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "listable"
-  s.version = "0.1.4"
+  s.version = "0.1.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Johannes Baldursson"]
@@ -41,7 +41,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.19"
-  s.summary = "Rails extension that makes it easy to list and query several models through a single view backed model."
+  s.summary = "ActiveRecord extension that makes it easy to list and query several models through a single view backed model."
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
