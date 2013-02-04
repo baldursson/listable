@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "listable"
-  s.version = "0.1.5"
+  s.version = "0.1.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Johannes Baldursson"]
-  s.date = "2013-02-03"
+  s.date = "2013-02-04"
   s.description = "With listable you can consolidate fields from several models into one, backed up by a database view.\n                       It is perfect for e.g. a front page where you may want to display the most recent additions to your site in a joint list.\n                       By providing scopes for each model you wish to include in a view, Listable will automatically create the database view for you."
   s.email = "johannes.baldursson@gmail.com"
   s.extra_rdoc_files = [
@@ -40,7 +40,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/baldursson/listable"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.19"
+  s.rubygems_version = "1.8.10"
   s.summary = "ActiveRecord extension that makes it easy to list and query several models through a single view backed model."
 
   if s.respond_to? :specification_version then
