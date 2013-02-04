@@ -33,9 +33,10 @@ module Listable
             view_name = prefixed_view_name(view_name.to_s) # Appending a prefix to views
             query_info.each do |model_name, scope|
               model_class = Kernel.const_get(model_name)
-              query = model_class.select_as(id: :listable_id) # Always begin selection with the original model ID
+              table_name = model_class.table_name
+              query = model_class.select_as("#{table_name}.id" => :listable_id) # Always begin selection with the original model ID
               query = query.send(scope) # Appends selection from scope
-              query = query.select([:created_at, :updated_at]) # Include Rails' timestamps in view
+              query = query.select(["#{table_name}.created_at", "#{table_name}.updated_at"]) # Include Rails' timestamps in view
               query = query.select("CAST('#{model_name}' AS char(#{model_name.length})) AS listable_type") # Finish with the original model name, needed for the polymorphic relation
 
               queries << query

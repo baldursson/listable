@@ -49,3 +49,5 @@ pkg
 #*.rbc
 
 *.sqlite3
+
+th-mysql-dir
