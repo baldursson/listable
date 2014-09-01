@@ -10,7 +10,7 @@ module Listable
 
   module ClassMethods
     def listable_through(listable_view_name, scope_name)
-      has_one listable_view_name.to_s.singularize, as: :listable
+      has_one listable_view_name.to_s.singularize.to_sym, as: :listable
 
       ViewManager.add_listable listable_view_name, self.name, scope_name
     end

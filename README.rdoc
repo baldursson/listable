@@ -1,10 +1,14 @@
 = listable
 
-With listable you can consolidate fields from several models into one, backed up by a database view.
+With listable you can consolidate fields from several Rails models into one, backed up by a database view.
 It is perfect for e.g. a front page where you may want to display the most recent additions to your site in a joint list.
 By providing scopes for each model you wish to include in a view, listable will automatically create the database view for you.
 The view model and the models it lists will have a polymorphic association for convenience.
 Listable currently supports the following connection adapters: SQLite, PostgreSQL and MySQL2.
+
+== Requirements
+* ActiveRecord >= 3.2
+* Tested with Rails 4
 
 == How to use
 This chapter shows some basic examples of all the steps needed to get started.
@@ -40,9 +44,12 @@ Here is a basic example:
   end
 
 === Creating the database views
-You can create the database views by running the rake task <em>listable:migrate</em>.
+You can create the database views by running the rake task <em>listable:create</em>.
 But you will hardly ever need to do that since all listable views are automatically (re)created when running
 Rails' <em>db:migrate</em>.
+
+The views created by listable will also conveniently be dropped and recreated when running <em>db:setup</em> or <em>db:reset</em>,
+and dropped when running <em>db:drop</em>. If you need to drop the views manually, just run the rake task <em>listable:drop</em>
 
 ==== Why not generate Rails migrations to create the views?
 I believe it is very awkward to create views through migrations for several reasons.
