@@ -2,18 +2,20 @@ require 'helper'
 
 class TestListable < Test::Unit::TestCase
 
-  context "a listable view model" do
-    def setup
+      def setup
       Listable::ViewManager.create_views
     end
 
-    def topical_items_count
-      TopicalItems.count
-    end
+  def topical_items_count
+    TopicalItems.count(:all)
+  end
 
-    def listable_items_count
-      Page.listables.count + Employee.listables.count + NewsArticle.listables.count
-    end
+  def listable_items_count
+    Page.listables.count(:all) + Employee.listables.count(:all) + NewsArticle.listables.count(:all)
+  end
+
+  context "a listable view model" do
+
 
     should "have as many rows as the models it lists" do
       assert_equal listable_items_count, topical_items_count

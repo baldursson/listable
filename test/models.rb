@@ -4,17 +4,17 @@ end
 
 class Page < ActiveRecord::Base
   listable_through :topical_items, :listables
-  scope :listables, select([:title, :body])
+  scope :listables, -> { select([:title, :body]) }
 end
 
 class Employee < ActiveRecord::Base
   listable_through :topical_items, :listables
-  scope :listables, concat_select([:first_name, ' ', :last_name], :title).select(:biography)
+  scope :listables, -> { concat_select([:first_name, ' ', :last_name], :title).select(:biography) }
 end
 
 class NewsArticle < ActiveRecord::Base
   listable_through :topical_items, :listables
-  scope :listables, select_as(headline: 'title').select(:body)
+  scope :listables, -> { select_as(headline: 'title').select(:body) }
 end
 
 # Seeding pages

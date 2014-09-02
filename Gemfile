@@ -3,6 +3,7 @@ source "http://rubygems.org"
 # Example:
 gem "activesupport", ">= 3.2"
 gem "activerecord", ">= 3.2"
+gem "composite_primary_keys", ">=5.0"
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.

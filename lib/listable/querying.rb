@@ -16,7 +16,7 @@ module Listable
       def select_as(fields)
         selection = []
         fields.each do |field, as_name|
-          selection << "#{connection.quote_table_name(field)} AS #{as_name}"
+          selection << "#{field} AS #{as_name}"
         end
         select(selection * ', ')
       end

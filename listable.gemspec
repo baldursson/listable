@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Johannes Baldursson"]
   s.date = "2013-02-04"
-  s.description = "With listable you can consolidate fields from several Rails models into one, backed up by a database view.\n                       It is perfect for e.g. a front page where you may want to display the most recent additions to your site in a joint list.\n                       By providing scopes for each model you wish to include in a view, Listable will automatically create the database view for you."
+  s.description = "With listable you can consolidate fields from several ActiveRecord models into one, backed up by a database view.\n                       It is perfect for e.g. a front page where you may want to display the most recent additions to your site in a joint list.\n                       By providing scopes for each model you wish to include in a view, Listable will automatically create the database view for you."
   s.email = "johannes.baldursson@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -49,6 +49,7 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<activesupport>, [">= 3.2"])
       s.add_runtime_dependency(%q<activerecord>, [">= 3.2"])
+      s.add_runtime_dependency(%q<composite_primary_keys>, [">= 5.0"])
       s.add_development_dependency(%q<test-unit>, ["~> 2.5.4"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
@@ -61,6 +62,7 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<activesupport>, [">= 3.2"])
       s.add_dependency(%q<activerecord>, [">= 3.2"])
+      s.add_dependency(%q<composite_primary_keys>, [">= 5.0"])
       s.add_dependency(%q<test-unit>, ["~> 2.5.4"])
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
@@ -74,6 +76,7 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<activesupport>, [">= 3.2"])
     s.add_dependency(%q<activerecord>, [">= 3.2"])
+    s.add_dependency(%q<composite_primary_keys>, [">= 5.0"])
     s.add_dependency(%q<test-unit>, ["~> 2.5.4"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<rdoc>, ["~> 3.12"])

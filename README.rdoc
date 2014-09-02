@@ -1,6 +1,6 @@
 = listable
 
-With listable you can consolidate fields from several Rails models into one, backed up by a database view.
+With listable you can consolidate fields from several ActiveRecord models into one, backed up by a database view.
 It is perfect for e.g. a front page where you may want to display the most recent additions to your site in a joint list.
 By providing scopes for each model you wish to include in a view, listable will automatically create the database view for you.
 The view model and the models it lists will have a polymorphic association for convenience.

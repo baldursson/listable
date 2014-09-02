@@ -1,4 +1,5 @@
 require 'active_support/concern'
+require 'composite_primary_keys'
 
 require 'listable/view_manager'
 require 'listable/connection_adapters'
@@ -17,6 +18,8 @@ module Listable
 
     def acts_as_listable_view
       self.table_name = ViewManager.prefixed_view_name(self.name)
+      self.primary_keys = :listable_id, :listable_type
+
       belongs_to :listable, polymorphic: true
       include ViewMethods
     end
@@ -47,13 +50,19 @@ if defined?(Rails)
   # Extending connection adapters when lazily loaded by Rails
   require 'listable/railtie'
 else
-  require 'active_record/connection_adapters/sqlite_adapter'
+  if ActiveRecord::VERSION::MAJOR < 4
+    require 'active_record/connection_adapters/sqlite_adapter'
+    ActiveRecord::ConnectionAdapters::SQLiteAdapter.send(:include, Listable::ConnectionAdapters::SQLiteExtensions)
+  else
+    require 'active_record/connection_adapters/sqlite3_adapter'
+    ActiveRecord::ConnectionAdapters::SQLite3Adapter.send(:include, Listable::ConnectionAdapters::SQLiteExtensions)
+  end
+
   require 'active_record/connection_adapters/postgresql_adapter'
   require 'active_record/connection_adapters/mysql2_adapter'
 
   # Extending connection adapters
   ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.send(:include, Listable::ConnectionAdapters::PostgreSQLExtensions)
-  ActiveRecord::ConnectionAdapters::SQLiteAdapter.send(:include, Listable::ConnectionAdapters::SQLiteExtensions)
   ActiveRecord::ConnectionAdapters::Mysql2Adapter.send(:include, Listable::ConnectionAdapters::MySQLExtensions)
 end
       

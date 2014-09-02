@@ -11,6 +11,10 @@ module Listable
           ActiveRecord::ConnectionAdapters::SQLiteAdapter.send(:include, Listable::ConnectionAdapters::SQLiteExtensions)
         end
 
+        if ActiveRecord::ConnectionAdapters.const_defined?(:SQLite3Adapter)
+          ActiveRecord::ConnectionAdapters::SQLite3Adapter.send(:include, Listable::ConnectionAdapters::SQLiteExtensions)
+        end
+
         if ActiveRecord::ConnectionAdapters.const_defined?(:Mysql2Adapter)
           ActiveRecord::ConnectionAdapters::Mysql2Adapter.send(:include, Listable::ConnectionAdapters::MySQLExtensions)
         end
