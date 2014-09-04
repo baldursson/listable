@@ -2,9 +2,9 @@ require 'helper'
 
 class TestListable < Test::Unit::TestCase
 
-      def setup
-      Listable::ViewManager.create_views
-    end
+  def setup
+    Listable::ViewManager.create_views
+  end
 
   def topical_items_count
     TopicalItems.count(:all)

@@ -44,4 +44,8 @@ Test::Unit.at_exit do
 end
 
 load File.dirname(__FILE__) + "/schema.rb"
-load File.dirname(__FILE__) + "/models.rb"
+if ActiveRecord::VERSION::MAJOR < 4
+  load File.dirname(__FILE__) + "/models.rb"
+else
+  load File.dirname(__FILE__) + "/models_4.rb"
+end

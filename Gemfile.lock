@@ -96,6 +96,7 @@ DEPENDENCIES
   jeweler (~> 2.0.1)
   mysql2
   pg
+  rake
   rdoc (~> 4.1.1)
   shoulda
   simplecov

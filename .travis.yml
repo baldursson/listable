@@ -1,0 +1,13 @@
+language: ruby
+rvm:
+  - "2.1.2"
+  - "1.9.3"
+gemfile:
+  - Gemfile
+  - gemfiles/rails3_2.gemfile
+env:
+  - DB=sqlite
+  - DB=postgres
+  - DB=mysql
+before_script:
+  - cp config/database.travis.yml config/database.yml
