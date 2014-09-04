@@ -11,7 +11,7 @@ group :development do
   gem "test-unit", "~> 3.0.1"
   gem "shoulda", ">= 0"
   gem "rdoc", "~> 4.1.1"
-  gem "bundler", "~> 1.7.2"
+  gem "bundler", ">= 1.6.2"
   gem "jeweler", "~> 2.0.1"
   gem "simplecov", ">= 0"
   gem "sqlite3"
